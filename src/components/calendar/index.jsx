@@ -8,12 +8,11 @@ import { YearTable } from "./YearTable";
 const weekdayShort = moment.weekdaysShort();
 const allMonths = moment.months();
 
-const Calendar = () => {
+const Calendar = ({ onDaySelect, dateStatuses }) => {
   const [ showCalendarTable, setShowCalendarTable ] = useState(true);
   const [ showMonthTable, setShowMonthTable ] = useState(false);
   const [ dateObject, setDateObject ] = useState(moment());
   const [ showYearNav, setShowYearNav ] = useState(false);
-  const [ selectedDay, setSelectedDay ] = useState(null);
 
   const daysInMonth = () => {
     return dateObject.daysInMonth();
@@ -54,7 +53,7 @@ const Calendar = () => {
 
   const showYearEditor = () => {
     setShowYearNav(true);
-    setShowCalendarTable(!showCalendarTable);
+    setShowCalendarTable(false);
   };
 
   const onPrev = () => {
@@ -99,8 +98,10 @@ const Calendar = () => {
     return dateArray;
   }
 
-  const onDayClick = (e, d) => {
-    setSelectedDay(d);
+  const onDayClick = dayOfMonth => {
+    const newDate = dateObject.set("date", dayOfMonth);
+    setDateObject(newDate);
+    onDaySelect(newDate)
   };
 
   const weekdayHeader = weekdayShort.map(day => {
@@ -114,12 +115,14 @@ const Calendar = () => {
 
   let dayCells = [];
   for (let d = 1; d <= daysInMonth(); d++) {
+    console.log(1, getYear(), moment().month(getMonth()).format("MM"), d, );
     const isThisYear = getYear(moment()) === getYear();
     const isThisMonth = getMonth(moment()) === getMonth();
-    const currentDayClass = isThisYear && isThisMonth && d === currentDay() ? "today" : "";
-    // let selectedClass = (d == this.state.selectedDay ? " selected-day " : "")
+    const isToday = isThisYear && isThisMonth && d === currentDay();
+    const dateStatusClass = dateStatuses[dateObject.date(d).format("YYYY-MM-DD")] ? dateStatuses[dateObject.date(d).format("YYYY-MM-DD")] : "";
+    const currentDayClass = isToday ? "today" : "";
     dayCells.push(
-      <td key={d} className={`calendar-day ${currentDayClass}`}>
+      <td key={d} className={`calendar-day ${currentDayClass} ${dateStatusClass}`}>
         <span onClick={() => onDayClick(d)}>
           {d}
         </span>
@@ -140,7 +143,6 @@ const Calendar = () => {
       cells.push(row);
     }
     if (i === totalSlots.length - 1) {
-      // let insertRow = cells.slice();
       rows.push(cells);
     }
   });

@@ -149,11 +149,18 @@
 .tail-datetime-calendar .calendar-date table tbody tr > *.today:after {
   border-color: #3296c8;
 }
-.tail-datetime-calendar .calendar-date table tbody tr > *:hover {
-  color: #cd283c;
+.tail-datetime-calendar .calendar-date table tbody tr > .calendar-day:hover {
+  /* color: #cd283c; */
+  font-weight: bold;
 }
-.tail-datetime-calendar .calendar-date table tbody tr > *:hover:after {
-  border-color: #cd283c;
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day:hover:after {
+  /* border-color: #cd283c; */
+  border-color: rgba(0, 0, 0, 0.25);
 }
 .tail-datetime-calendar .calendar-date table tbody tr > *.empty,
 .tail-datetime-calendar .calendar-date table tbody tr > *.disable {
@@ -275,3 +282,60 @@
   line-height: 12px;
 }
 /* @end tail.DateTime */
+
+/* DAY STATUS: GREEN */
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-green {
+  color: #4e930b;
+}
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-green:after {
+  border-color: #4e930b;
+  background-color: #b6f17f;
+}
+
+/* DAY STATUS: YELLOW */
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-yellow {
+  color: #bf960d;
+}
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-yellow:after {
+  border-color: #bf960d;
+  background-color: #ffe48d;
+}
+
+/* DAY STATUS: RED */
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-red {
+  color: #cd283b;
+}
+.tail-datetime-calendar
+  .calendar-date
+  table
+  tbody
+  tr
+  > .calendar-day.status-red:after {
+  border-color: #cd283b;
+  background-color: #fa9fa9;
+}
